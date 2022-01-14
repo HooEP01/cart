@@ -5,6 +5,7 @@ namespace App\Http\Controllers;
 use Illuminate\Http\Request;
 use App\Models\Product;
 use App\Models\Category;
+use App\Models\Warranty;
 use Session;
 use DB;
 
@@ -12,7 +13,7 @@ class ProductController extends Controller
 {
 
     public function adminAdd(){
-        return view('admin.product-add') ->with('categories',Category::all());;
+        return view('admin.product-add')->with('categories',Category::all())->with('warranties',Warranty::all());
     }
 
     public function adminCreate(){
@@ -24,6 +25,7 @@ class ProductController extends Controller
 
         $addProduct=Product::create([
             'CategoryID'=>$r->categoryID,
+            'WarrantyID'=>$r->warrantyID,
             'name'=>$r->productName,
             'description'=>$r->productDescription,
             'price'=>$r->productPrice,
@@ -39,7 +41,8 @@ class ProductController extends Controller
    
         $viewProduct=DB::table('products')
         ->leftjoin('categories','categories.id','=','products.CategoryID')
-        ->select('products.*','categories.name as categoryID')
+        ->leftjoin('warranties','warranties.id','=','products.WarrantyID')
+        ->select('products.*','categories.name as categoryID','warranties.name as warrantyID')
         ->get();
 
         return view('admin.product-view')->with('products',$viewProduct);
@@ -48,7 +51,8 @@ class ProductController extends Controller
      public function adminEdit($id){
         $products=Product::all()->where('id',$id);
         return view('admin.product-edit')->with('products',$products)
-                                  ->with('categoryID', Category::all());
+                                  ->with('categoryID', Category::all())
+                                  ->with('warrantyID', Warranty::all());
     }
 
      public function adminUpdate(){
@@ -67,6 +71,7 @@ class ProductController extends Controller
         $products->price=$r->productPrice;
         $products->quantity=$r->productQuantity;
         $products->CategoryID=$r->categoryID;
+        $products->WarrantyID=$r->warrantyID;
         $products->save();
         
         Session::flash('success',"Product update successfully!");
@@ -96,7 +101,8 @@ class ProductController extends Controller
         
         $products=DB::table('products')
         ->leftjoin('categories','categories.id','=','products.CategoryID')
-        ->select('products.*','categories.name as categoryID')
+        ->leftjoin('warranties','warranties.id','=','products.WarrantyID')
+        ->select('products.*','categories.name as categoryID','warranties.name as warrantyID')
         ->where('products.id',$id)
         ->get();
 

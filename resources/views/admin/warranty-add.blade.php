@@ -2,23 +2,24 @@
 
 @section('content')
 
+
 <!-- BEGIN: Content-->
 <div class="app-content content ">
-    <div class="content-overlay"></div>
+<div class="content-overlay"></div>
     <div class="header-navbar-shadow"></div>
     <div class="content-wrapper">
         <div class="content-header row">
-            <div class="content-header-left col-md-9 col-12 mb-2">
+            <div class="conten t-header-left col-md-9 col-12 mb-2">
                 <div class="row breadcrumbs-top">
                     <div class="col-12">
-                        <h2 class="content-header-title float-left mb-0">Product Page</h2>
+                        <h2 class="content-header-title float-left mb-0">Warranty Page</h2>
                         <div class="breadcrumb-wrapper">
                             <ol class="breadcrumb">
                                 <li class="breadcrumb-item"><a href="index.html">Home</a>
                                 </li>
-                                <li class="breadcrumb-item"><a href="#">Product</a>
+                                <li class="breadcrumb-item"><a href="#">Warranty</a>
                                 </li>
-                                <li class="breadcrumb-item active">Add Product</a>
+                                <li class="breadcrumb-item active">Add Warranty</a>
                                 </li>
                             </ol>
                         </div>
@@ -32,7 +33,7 @@
                 <div class="row">
                     <div class="content-header-left col-md-9 col-12 mb-2">
                         <div class="card">
-                            
+
                             @if(Session::has('success'))
                             <div class="alert alert-success p-2 m-0" role="alert">
                                 {{Session::get('success')}}
@@ -50,20 +51,19 @@
                             @endif
 
                             <div class="card-header">
-                                <h4 class="card-title">Add Product</h4>
+                                <h4 class="card-title">Add Warranty</h4>
                             </div>
-
                             <div class="card-body">
-                                <form action="{{route('admin.product.create')}}" method="POST" enctype="multipart/form-data">
+                                <form class="form form-horizontal" method="POST" action="{{route('admin.warranty.create')}}" enctype="multipart/form-data">
                                     @csrf
                                     <div class="row">
                                         <div class="col-12">
                                             <div class="form-group row">
                                                 <div class="col-sm-3 col-form-label">
-                                                    <label for="productName">Product Name</label>
+                                                    <label for="name">Name</label>
                                                 </div>
                                                 <div class="col-sm-9">
-                                                    <input type="text" id="productName" class="form-control" name="productName" required/>
+                                                    <input type="text" id="name" class="form-control" name="name" />
                                                 </div>
                                             </div>
                                         </div>
@@ -71,15 +71,10 @@
                                         <div class="col-12">
                                             <div class="form-group row">
                                                 <div class="col-sm-3 col-form-label">
-                                                    <label for="categoryID">Category</label>
+                                                    <label for="exclusion">Inclusion</label>
                                                 </div>
-                                                <div class="col-sm-9 col-form-label pb-0 pt-0">
-                                                    <select id="categoryID" name="categoryID">
-                                                    @foreach($categories as $category)
-                                                        <option value="{{$category->id}}">{{$category->name}}</option>
-                                                    @endforeach
-                                                
-                                                    </select>
+                                                 <div class="col-sm-9">
+                                                  <textarea class="form-control" type="text" id="inclusion" name="inclusion" required></textarea>
                                                 </div>
                                             </div>
                                         </div>
@@ -87,27 +82,10 @@
                                         <div class="col-12">
                                             <div class="form-group row">
                                                 <div class="col-sm-3 col-form-label">
-                                                    <label for="warrantyID">Warranty</label>
-                                                </div>
-                                                <div class="col-sm-9 col-form-label pb-0 pt-0">
-                                                    <select id="warrantyID" name="warrantyID">
-                                                    @foreach($warranties as $warranty)
-                                                        <option value="{{$warranty->id}}">{{$warranty->name}}</option>
-                                                    @endforeach
-                                                
-                                                    </select>
-                                                </div>
-                                            </div>
-                                        </div>
-                                        
-
-                                        <div class="col-12">
-                                            <div class="form-group row">
-                                                <div class="col-sm-3 col-form-label">
-                                                    <label for="productPrice">Price</label>
+                                                    <label for="exclusion">Exclusion</label>
                                                 </div>
                                                 <div class="col-sm-9">
-                                                    <input type="number" id="productPrice" class="form-control" name="productPrice" min="0" required />
+                                                    <textarea class="form-control" type="text" id="exclusion" name="exclusion" required></textarea>
                                                 </div>
                                             </div>
                                         </div>
@@ -115,32 +93,10 @@
                                         <div class="col-12">
                                             <div class="form-group row">
                                                 <div class="col-sm-3 col-form-label">
-                                                    <label for="productQuantity">Quantity</label>
+                                                    <label for="year">Year</label>
                                                 </div>
                                                 <div class="col-sm-9">
-                                                    <input type="number" id="productQuantity" class="form-control" name="productQuantity"  min="0" required />
-                                                </div>
-                                            </div>
-                                        </div>
-
-                                        <div class="col-12">
-                                            <div class="form-group row">
-                                                <div class="col-sm-3 col-form-label">
-                                                    <label for="productDescription">Description</label>
-                                                </div>
-                                                <div class="col-sm-9">
-                                                  <textarea class="form-control" type="text" id="productDescription" name="productDescription" required></textarea>
-                                                </div>
-                                            </div>
-                                        </div>
-
-                                        <div class="col-12">
-                                            <div class="form-group row">
-                                                <div class="col-sm-3 col-form-label">
-                                                    <label for="imageName">Images</label>
-                                                </div>
-                                                <div class="col-sm-9">
-                                                    <input type="file" class="form-control" id="productImage" name="productImage" required>
+                                                    <input type="number" id="yeaer" class="form-control" name="year" />
                                                 </div>
                                             </div>
                                         </div>
@@ -151,7 +107,7 @@
                                             </div>
                                         </div>
                                         <div class="col-sm-9 offset-sm-3">
-                                            <button name="submit1" type="submit" class="btn btn-primary mr-1" style="float:right">Submit</button>
+                                            <button name="submit" type="submit" class="btn btn-primary mr-1">Submit</button>
                                         </div>
                                     </div>
                                 </form>
@@ -177,6 +133,5 @@
 <!-- END: Footer-->
 
 </html>
-
 
 @endsection

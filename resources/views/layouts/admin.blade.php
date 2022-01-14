@@ -201,6 +201,12 @@
                     </li>
 
                     <li class="nav-item"><a class="d-flex align-items-center" href="#"><i data-feather="check-square"></i><span class="menu-title text-truncate" data-i18n="Calendar">Warranty</span></a>
+                        <ul class="menu-content">
+                            <li><a class="d-flex align-items-center" href="{{route('admin.warranty.view')}}"><i data-feather="eye"></i><span class="menu-item text-truncate" data-i18n="List">View</span></a>
+                            </li>
+                            <li><a class="d-flex align-items-center" href="{{route('admin.warranty.add')}}"><i data-feather="plus"></i><span class="menu-item text-truncate" data-i18n="Add">Add</span></a>
+                            </li>
+                        </ul>
                     </li>
                 
                 </ul>

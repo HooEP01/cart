@@ -6,6 +6,7 @@ use Illuminate\Http\Request;
 use App\Models\Product;
 use App\Models\Category;
 use App\Models\Cart;
+use App\Models\Warranty;
 use Auth;
 use Session;
 use DB;
@@ -31,7 +32,8 @@ class CartController extends Controller
         $carts=DB::table('carts')
         ->leftjoin('products','products.id','=','carts.productID')
         ->leftjoin('categories','categories.id','=','products.CategoryID')
-        ->select('carts.quantity as cartQty','carts.id as cid','products.*','categories.name as categoryID')
+        ->leftjoin('warranties','warranties.id','=','products.WarrantyID')
+        ->select('carts.quantity as cartQty','carts.id as cid','products.*','categories.name as categoryID','warranties.name as warrantyID')
         ->where('carts.orderID','=','')
         ->where('carts.userID','=',Auth::id())
         ->paginate(5);

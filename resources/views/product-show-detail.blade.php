@@ -177,6 +177,11 @@
                                         <p class="font-weight-bolder text-justify mb-0">{{ $product->categoryID }}</p>
                                     </div>
 
+                                    <div class="col-12 border-right py-1">
+                                        <p class="card-text text-muted mb-0">Warranty</p>
+                                        <p class="font-weight-bolder text-justify mb-0">{{ $product->warrantyID }}</p>
+                                    </div>
+
                                      <div class="col-12 border-right py-1">
                                         <p class="card-text text-muted mb-0">Quantity</p>
                                         <input type="number"  class="form-control font-weight-bolder text-justify mb-0" style="margin-top:0.5em;" min="1" name="quantity" value="1">

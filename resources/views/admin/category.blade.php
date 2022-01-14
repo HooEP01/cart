@@ -131,7 +131,7 @@
                                                     <label for="categoryName">Category Name</label>
                                                 </div>
                                                 <div class="col-sm-9" bis_skin_checked="1">
-                                                    <input type="text" id="productName" class="form-control" name="categoryName">
+                                                    <input type="text" id="categoryName" class="form-control" name="categoryName">
                                                 </div>
                                             </div>
                                         </div>

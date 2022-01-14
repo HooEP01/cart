@@ -73,6 +73,28 @@
                                                 </div>
                                             </div>
                                         </div>
+
+                                        <div class="col-12">
+                                            <div class="form-group row">
+                                                <div class="col-sm-3 col-form-label">
+                                                    <label for="warrantyID">Warranty</label>
+                                                </div>
+                                                <div class="col-sm-9 col-form-label pb-0 pt-0">
+                                                    <select id="warrantyID" name="warrantyID">
+                                                    @foreach($warrantyID as $warranty)
+                                                        <option value="{{$warranty->id}}">
+                                                            @if($product->WarrantyID == $warranty->id)
+                                                                selected
+                                                            @endif
+                                                            {{$warranty->name}}
+                                                        </option>
+                                                    @endforeach
+                                                
+                                                    </select>
+                                                </div>
+                                            </div>
+                                        </div>
+
                                         <div class="col-12">
                                             <div class="form-group row">
                                                 <div class="col-sm-3 col-form-label">

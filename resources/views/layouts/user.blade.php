@@ -174,7 +174,7 @@
                     <li class=" nav-item"><a class="d-flex align-items-center" href="{{route('user.product.view')}}"><i data-feather="box"></i><span class="menu-title text-truncate" data-i18n="Product">Product</span></a>
                     </li>
 
-                    <li class="nav-item"><a class="d-flex align-items-center" href="#"><i data-feather="check-square"></i><span class="menu-title text-truncate" data-i18n="Calendar">Warranty</span></a>
+                    <li class="nav-item"><a class="d-flex align-items-center" href="{{route('user.warranty.view')}}"><i data-feather="check-square"></i><span class="menu-title text-truncate" data-i18n="Calendar">Warranty</span></a>
                     </li>
                 </ul>
             </div>

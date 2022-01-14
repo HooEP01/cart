@@ -75,12 +75,12 @@ Route::get('/admin/order/delete/{id}', [App\Http\Controllers\OrderController::cl
 /*
 | Admin - Warranty
 */
-/* **** Route::get('/admin/warranty/add', [App\Http\Controllers\WarrantyController::class, 'adminAdd'])->name('admin.warranty.add')->middleware('is_admin');
-        Route::post('/admin/warranty/add/new', [App\Http\Controllers\WarrantyController::class, 'adminCreate'])->name('admin.warranty.create')->middleware('is_admin');
-        Route::get('/admin/warranty/view', [App\Http\Controllers\WarrantyController::class, 'adminView'])->name('admin.warranty.view')->middleware('is_admin');
-        Route::get('/admin/warranty/edit/{id}', [App\Http\Controllers\WarrantyController::class, 'adminEdit'])->name('admin.warranty.edit')->middleware('is_admin');
-        Route::post('/admin/warranty/update', [App\Http\Controllers\WarrantyController::class, 'adminUpdate'])->name('admin.warranty.update')->middleware('is_admin');
-        Route::get('/admin/warranty/delete/{id}', [App\Http\Controllers\WarrantyController::class, 'adminDelete'])->name('admin.warranty.delete')->middleware('is_admin'); */
+Route::get('/admin/warranty/add', [App\Http\Controllers\WarrantyController::class, 'adminAdd'])->name('admin.warranty.add')->middleware('is_admin');
+Route::post('/admin/warranty/add/new', [App\Http\Controllers\WarrantyController::class, 'adminCreate'])->name('admin.warranty.create')->middleware('is_admin');
+Route::get('/admin/warranty/view', [App\Http\Controllers\WarrantyController::class, 'adminView'])->name('admin.warranty.view')->middleware('is_admin');
+Route::get('/admin/warranty/edit/{id}', [App\Http\Controllers\WarrantyController::class, 'adminEdit'])->name('admin.warranty.edit')->middleware('is_admin');
+Route::post('/admin/warranty/update', [App\Http\Controllers\WarrantyController::class, 'adminUpdate'])->name('admin.warranty.update')->middleware('is_admin');
+Route::get('/admin/warranty/delete/{id}', [App\Http\Controllers\WarrantyController::class, 'adminDelete'])->name('admin.warranty.delete')->middleware('is_admin');
 
 /*
 |-------------------------------------------------------------------------
@@ -124,5 +124,5 @@ Route::get('/product/view/{id}', [App\Http\Controllers\ProductController::class,
 /*
 | User - Warranty
 */
-/* **** Route::get('/warranty/view', [App\Http\Controllers\WarrantyController::class, 'userView'])->name('user.warranty.view'); */
+Route::get('/warranty/view', [App\Http\Controllers\WarrantyController::class, 'userView'])->name('user.warranty.view');
 
