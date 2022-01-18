@@ -47,7 +47,7 @@ class OrderController extends Controller
         return view('admin.order-edit')->with('orders',$orders);
     }
 
-     public function adminUpdate(){
+    public function adminUpdate(){
         $r=request();
         $orders=Order::find($r->id);
 
@@ -96,13 +96,24 @@ class OrderController extends Controller
         return $pdf->download('Order_report.pdf');
     }
 
-    public function view()
+    public function userView()
     {
         $orders = DB::table('orders')
             ->select('orders.*')
             ->where('orders.userID', '=', Auth::id())
+            ->where('orders.status', '!=', 'delete')
             ->get();
-        return view('order')->with('orders', $orders);
+        return view('order-show')->with('orders', $orders);
+    }
+
+    public function userDelete($id)
+    {
+        $orders=Order::find($id);
+        $orders->status='delete';
+        $orders->save();
+        
+        Session::flash('success',"Order delete successfully!");
+        return redirect()->route('user.order.view');
     }
 }
 

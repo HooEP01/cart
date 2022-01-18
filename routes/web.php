@@ -102,18 +102,25 @@ Route::get('/account/view', [App\Http\Controllers\UserController::class, 'userVi
 /*
 | User - Order
 */
-/* **** Route::get('/order/view', [App\Http\Controllers\OrderController::class, 'userView'])->name('user.order.view'); */
+Route::get('/order/view', [App\Http\Controllers\OrderController::class, 'userView'])->name('user.order.view');
+Route::get('/order/delete/{id}', [App\Http\Controllers\OrderController::class, 'userDelete'])->name('user.order.delete');
+/* ***** Route::get('/order/view/{id}', [App\Http\Controllers\OrderController::class, 'userViewDetail'])->name('user.order.view.detail');*/
 
 /*
-| User - Payment
+| User - checkout
 */
-/* **** Route::post('/checkout', [App\Http\Controllers\PaymentController::class, ''])->name(''); */
+Route::get('/checkout/view', [App\Http\Controllers\PaymentController::class, 'userView'])->name('user.checkout.view'); 
+Route::get('/checkout/view/{id}', [App\Http\Controllers\PaymentController::class, 'userViewID'])->name('user.checkout.view.id'); 
+Route::post('/checkout/add', [App\Http\Controllers\PaymentController::class, 'userAdd'])->name('user.checkout.add');
+Route::post('/checkout', [App\Http\Controllers\PaymentController::class, 'userPayment'])->name('user.checkout.payment'); 
 
 /*
 | User - Cart
 */
 Route::post('/cart/add', [App\Http\Controllers\CartController::class, 'userAdd'])->name('user.cart.add');
 Route::get('/cart/view', [App\Http\Controllers\CartController::class, 'userView'])->name('user.cart.view');
+/* ***** Route::post('/cart/edit', [App\Http\Controllers\CartController::class, 'userEdit'])->name('user.cart.edit'); */
+/* ***** Route::post('/cart/delete', [App\Http\Controllers\CartController::class, 'userEdit'])->name('user.cart.delete'); */
 
 /*
 | User - Product

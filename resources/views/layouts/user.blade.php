@@ -167,7 +167,7 @@
                     </li>
                     <li class=" navigation-header"><span data-i18n="Apps &amp; Pages">Pages</span><i data-feather="more-horizontal"></i>
                     </li>
-                    <li class=" nav-item"><a class="d-flex align-items-center" href="#"><i data-feather="file"></i><span class="menu-title text-truncate" data-i18n="Chat">Order</span></a>
+                    <li class=" nav-item"><a class="d-flex align-items-center" href="{{route('user.order.view')}}"><i data-feather="file"></i><span class="menu-title text-truncate" data-i18n="Chat">Order</span></a>
                     </li>
                     <li class=" nav-item"><a class="d-flex align-items-center" href="{{route('user.cart.view')}}"><i data-feather="align-left"></i><span class="menu-title text-truncate" data-i18n="Categories">Cart</span></a>
                     </li>

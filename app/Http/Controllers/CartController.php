@@ -39,4 +39,5 @@ class CartController extends Controller
         ->paginate(5);
         Return view('cart')->with('products',$carts);
     }
+
 }

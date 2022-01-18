@@ -1,6 +1,34 @@
 @extends('layouts.user')
 
 @section('content')
+
+<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
+
+<script>
+    function cal(){
+        var price=document.getElementsByName('price[]');
+        var quantity=document.getElementsByName('quantity[]');
+        var subtotal= 0;
+        var cboxes=document.getElementsByName('cid[]');
+        var len=cboxes.length; //get number  of cid[] checkbox inside the page
+        for(var i=0;i<len;i++){
+            if(cboxes[i].checked){  //calculate if checked
+                subtotal=parseFloat(price[i].value) * parseFloat(quantity[i].value) + parseFloat(subtotal);
+            }
+        }
+        document.getElementById('sub').value=subtotal.toFixed(2); //convert 2 decimal place      
+    }
+
+    function toggle(source) {
+        checkboxes = document.getElementsByName('cid[]');
+        for(var i=0, n=checkboxes.length;i<n;i++) {
+            checkboxes[i].checked = source.checked;
+        }
+        cal();
+    }
+                                                
+</script>
+
 <!-- BEGIN: Content-->
 <div class="app-content content ">
     <div class="content-overlay"></div>
@@ -48,74 +76,70 @@
                                             });
                                         </script>
                                     @endif
+
+
                                     <div id="DataTables_Table_0_wrapper" class="dataTables_wrapper dt-bootstrap4 no-footer">
                                         <div class="card-header border-bottom p-1">
                                             <div class="head-label">
                                                 <h6 class="mb-0">Cart List</h6>
                                             </div>
                                             <div class="dt-action-buttons text-right">
-                                                <div class="dt-buttons d-inline-flex"> <button class="dt-button buttons-collection btn btn-outline-secondary dropdown-toggle mr-2" tabindex="0" aria-controls="DataTables_Table_0" type="button" aria-haspopup="true"><span><svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="feather feather-share font-small-4 mr-50">
-                                                                <path d="M4 12v8a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2v-8"></path>
-                                                                <polyline points="16 6 12 2 8 6"></polyline>
-                                                                <line x1="12" y1="2" x2="12" y2="15"></line>
-                                                            </svg>Export</span></button> <a href="addProduct.php"><button class="dt-button create-new btn btn-primary" tabindex="0" aria-controls="DataTables_Table_0" type="button" data-toggle="modal" data-target="#modals-slide-in"><span><svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="feather feather-plus mr-50 font-small-4">
-                                                                    <line x1="12" y1="5" x2="12" y2="19"></line>
-                                                                    <line x1="5" y1="12" x2="19" y2="12"></line>
-                                                                </svg>Add New </span></button></a> </div>
+                                                <div class="dt-buttons d-inline-flex"><a href="{{route('user.product.view')}}" ><button class="dt-button buttons-collection btn btn-outline-secondary dropdown-toggle mr-2" tabindex="0" aria-controls="DataTables_Table_0" type="button" aria-haspopup="true"><span><svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="feather feather-share font-small-4 mr-50">
+                                                    </svg>Add New</span></button></a>  
+                                                </div>
                                             </div>
                                         </div>
-                                        <div class="d-flex justify-content-between align-items-center mx-0 row">
-                                            <div class="col-sm-12 col-md-6">
-                                                <div class="dataTables_length" id="DataTables_Table_0_length"><label>Show <select name="DataTables_Table_0_length" aria-controls="DataTables_Table_0" class="custom-select form-control">
-                                                            <option value="7">7</option>
-                                                            <option value="10">10</option>
-                                                            <option value="25">25</option>
-                                                            <option value="50">50</option>
-                                                            <option value="75">75</option>
-                                                            <option value="100">100</option>
-                                                        </select> entries</label></div>
-                                            </div>
-                                            <div class="col-sm-12 col-md-6">
-                                                <div id="DataTables_Table_0_filter" class="dataTables_filter"><label>Search:<input type="search" class="form-control " placeholder="" aria-controls="DataTables_Table_0"></label></div>
-                                            </div>
-                                        </div>
+
+                                                                            
+                                    <form action="{{route('user.checkout.add')}}" method="post" class="require-validation">  
+                                    @CSRF
+                                    
                                         <table class="datatables-basic table dataTable no-footer dtr-column" id="DataTables_Table_0" role="grid" aria-describedby="DataTables_Table_0_info" style="width: 1205px;">
                                             <thead>
                                                 <tr role="row">
                                                     <th class="control sorting_disabled" rowspan="1" colspan="1" style="width: 35px; display: none;" aria-label=""></th>
-                                                    <th class="sorting" tabindex="0" aria-controls="DataTables_Table_0" rowspan="1" colspan="1" style="width: 114px;">&nbsp;</th>
+                                                    <th class="sorting" tabindex="0" aria-controls="DataTables_Table_0" rowspan="1" colspan="1" style="width: 114px;"><input type="checkbox" onClick="toggle(this)" /> Select All</th>
                                                     <th class="sorting" tabindex="0" aria-controls="DataTables_Table_0" rowspan="1" colspan="1" style="width: 119px;">Name</th>
                                                     <th class="sorting" tabindex="0" aria-controls="DataTables_Table_0" rowspan="1" colspan="1" style="width: 107px;">Category</th>
                                                     <th class="sorting" tabindex="0" aria-controls="DataTables_Table_0" rowspan="1" colspan="1" style="width: 107px;">Warranty</th>
                                                     <th class="sorting" tabindex="0" aria-controls="DataTables_Table_0" rowspan="1" colspan="1" style="width: 137px;">price</th>
                                                     <th class="sorting" tabindex="0" aria-controls="DataTables_Table_0" rowspan="1" colspan="1" style="width: 134px;">quantity</th>
                                                     <th class="sorting" tabindex="0" aria-controls="DataTables_Table_0" rowspan="1" colspan="1" style="width: 134px;">Action</th>
+                                                    
+                                                    
                                                 </tr>
                                             </thead>
                                             <tbody>
+
+
                                                     @foreach($products as $product)
                                                     <tr>
                                                         <td>
                                                             <input type="checkbox" name="cid[]" id="cid[]" value="{{$product->cid}}" onclick="cal()">
-                                                            <input type="hidden" name="subtotal[]" id="subtotal[]" value="{{ $product->price * $product->cartQty }}​">   
+                                                            <input type="hidden" name="price[]" id="price[]" value="{{$product->price}}">  
+                                                            <input type="hidden" name="quantity[]" id="quantity[]" value="{{ $product->quantity }}">  
+
                                                         </td>
                                                         <td>{{ $product->name }}</td>
                                                         <td>{{ $product->categoryID }}</td>
                                                         <td>{{ $product->warrantyID }}</td>
                                                         <td>{{ $product->price }}</td>
-                                                        <td>{{ $product->quantity }}</td>
+                                                        <td>{{ $product->quantity }}
+                                                            <!--
+                                                            <input type="number" id="quantity[]" class="form-control" name="quantity[]" value="{{ $product->quantity }}" required>
+                                                            -->
+                                                        </td>
+
                                                         <td>
 
-                                                            <a href="{{route('admin.product.edit',['id'=>$product->id])}}">
-                                                            <button class="btn-primary">Edit</button></a>
-                                                            <a onClick="return swal()">
+                                                            <a onClick="return swal({{$product->cid}})">
                                                             <button class="btn-outline-secondary">Delete</button></a>
 
                                                             <script src="//cdn.jsdelivr.net/npm/sweetalert2@11"></script>
 
                                                             <script>
 
-                                                                function swal(){
+                                                                function swal(a){
                                                                     Swal.fire({
                                                                         title: 'Are you sure?',
                                                                         text: "You won't be able to revert this!",
@@ -127,7 +151,7 @@
                                                                         }).then((result) => {
                                                                         if (result.isConfirmed) {
                                                                             new function() {
-                                                                                window.location.href = "{{route('admin.product.delete',['id'=>$product->id])}}";
+                                                                                window.location.href = "{{route('user.order.delete', '')}}"+"/"+a;
                                                                             };
                                                                         }
                                                                     })
@@ -141,11 +165,9 @@
 
                                         </table>
 
+                                    
                                         <div class="d-flex justify-content-between mx-0 row">
 
-                                            <div class="col-sm-12 col-md-6">
-
-                                            </div>
                                             <div class="col-sm-12 col-md-6">
                                                 <div class="dataTables_paginate paging_simple_numbers" id="DataTables_Table_0_paginate">
                                                     <ul class="pagination">
@@ -153,7 +175,22 @@
                                                     </ul>
                                                 </div>
                                             </div>
+                                            <div class="col-sm-12 col-md-6">
+                                                <div class="dataTables_paginate paging_simple_numbers" id="DataTables_Table_0_paginate">
+                                                    <ul class="pagination p-1">
+                                                        <span class="pr-1"><input type="text" value="0" name="sub" id="sub" size="8" class="form-control" readonly/></span>
+                                                        <button type="submit" class="pr-1 pl-1 dt-button buttons-collection btn btn-primary dropdown-toggle mr-2" tabindex="0" aria-controls="DataTables_Table_0" type="button" aria-haspopup="true"><span><svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="font-small-4 mr-50">
+                                                        </svg>Check Out</span></button>
+                                                    </ul>
+                                                </div>
+                                                
+                                            </div>
                                         </div>
+</form>
+
+                                    
+
+
                                     </div>
                                 </div>
                             </div>

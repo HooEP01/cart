@@ -1,4 +1,4 @@
-@extends('layouts.admin')
+@extends('layouts.user')
 
 @section('content')
 <!-- BEGIN: Content-->
@@ -13,17 +13,7 @@
                     <div class="content-header-left col-md-9 col-12 mb-2">
                         <div class="row breadcrumbs-top">
                             <div class="col-12">
-                                <h2 class="content-header-title float-left mb-0">Product Pages</h2>
-                                <div class="breadcrumb-wrapper">
-                                    <ol class="breadcrumb">
-                                        <li class="breadcrumb-item"><a href="index.html">Home</a>
-                                        </li>
-                                        <li class="breadcrumb-item"><a href="#">Product</a>
-                                        </li>
-                                        <li class="breadcrumb-item active">View
-                                        </li>
-                                    </ol>
-                                </div>
+                                <h2 class="content-header-title float-left mb-0">Order Pages</h2>
                             </div>
                         </div>
                     </div>
@@ -53,62 +43,40 @@
                                             <div class="head-label">
                                                 <h6 class="mb-0">Product List</h6>
                                             </div>
-                                            <div class="dt-action-buttons text-right">
-                                                <div class="dt-buttons d-inline-flex"> <button class="dt-button buttons-collection btn btn-outline-secondary dropdown-toggle mr-2" tabindex="0" aria-controls="DataTables_Table_0" type="button" aria-haspopup="true"><span><svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="feather feather-share font-small-4 mr-50">
-                                                                <path d="M4 12v8a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2v-8"></path>
-                                                                <polyline points="16 6 12 2 8 6"></polyline>
-                                                                <line x1="12" y1="2" x2="12" y2="15"></line>
-                                                            </svg>Export</span></button> <a href="addProduct.php"><button class="dt-button create-new btn btn-primary" tabindex="0" aria-controls="DataTables_Table_0" type="button" data-toggle="modal" data-target="#modals-slide-in"><span><svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="feather feather-plus mr-50 font-small-4">
-                                                                    <line x1="12" y1="5" x2="12" y2="19"></line>
-                                                                    <line x1="5" y1="12" x2="19" y2="12"></line>
-                                                                </svg>Add New Record</span></button></a> </div>
-                                            </div>
                                         </div>
-                                        <div class="d-flex justify-content-between align-items-center mx-0 row">
-                                            <div class="col-sm-12 col-md-6">
-                                                <div class="dataTables_length" id="DataTables_Table_0_length"><label>Show <select name="DataTables_Table_0_length" aria-controls="DataTables_Table_0" class="custom-select form-control">
-                                                            <option value="7">7</option>
-                                                            <option value="10">10</option>
-                                                            <option value="25">25</option>
-                                                            <option value="50">50</option>
-                                                            <option value="75">75</option>
-                                                            <option value="100">100</option>
-                                                        </select> entries</label></div>
-                                            </div>
-                                            <div class="col-sm-12 col-md-6">
-                                                <div id="DataTables_Table_0_filter" class="dataTables_filter"><label>Search:<input type="search" class="form-control " placeholder="" aria-controls="DataTables_Table_0"></label></div>
-                                            </div>
-                                        </div>
+                                       
                                         <table class="datatables-basic table dataTable no-footer dtr-column" id="DataTables_Table_0" role="grid" aria-describedby="DataTables_Table_0_info" style="width: 1205px;">
                                             <thead>
                                                 <tr role="row">
                                                     <th class="control sorting_disabled" rowspan="1" colspan="1" style="width: 35px; display: none;" aria-label=""></th>
                                                     <th class="sorting" tabindex="0" aria-controls="DataTables_Table_0" rowspan="1" colspan="1" style="width: 114px;">ID</th>
-                                                    <th class="sorting" tabindex="0" aria-controls="DataTables_Table_0" rowspan="1" colspan="1" style="width: 119px;">Name</th>
-                                                    <th class="sorting" tabindex="0" aria-controls="DataTables_Table_0" rowspan="1" colspan="1" style="width: 107px;">Category</th>
-                                                    <th class="sorting" tabindex="0" aria-controls="DataTables_Table_0" rowspan="1" colspan="1" style="width: 107px;">Warranty</th>
-                                                    <th class="sorting" tabindex="0" aria-controls="DataTables_Table_0" rowspan="1" colspan="1" style="width: 137px;">price</th>
-                                                    <th class="sorting" tabindex="0" aria-controls="DataTables_Table_0" rowspan="1" colspan="1" style="width: 134px;">quantity</th>
+                                                    <th class="sorting" tabindex="0" aria-controls="DataTables_Table_0" rowspan="1" colspan="1" style="width: 119px;">Amount</th>
+                                                    <th class="sorting" tabindex="0" aria-controls="DataTables_Table_0" rowspan="1" colspan="1" style="width: 107px;">Purchase Date</th>
+                                                    <th class="sorting" tabindex="0" aria-controls="DataTables_Table_0" rowspan="1" colspan="1" style="width: 107px;">Service Date</th>
+                                                    <th class="sorting" tabindex="0" aria-controls="DataTables_Table_0" rowspan="1" colspan="1" style="width: 137px;">Install Date</th>
+                                                    <th class="sorting" tabindex="0" aria-controls="DataTables_Table_0" rowspan="1" colspan="1" style="width: 134px;">Status</th>
                                                     <th class="sorting" tabindex="0" aria-controls="DataTables_Table_0" rowspan="1" colspan="1" style="width: 134px;">Action</th>
                                                 </tr>
                                             </thead>
                                             <tbody>
-                                                    @foreach($products as $product)
+                                                    @foreach($orders as $order)
                                                     <tr>
-                                                        <td>{{ $product->id }}</td>
-                                                        <td>{{ $product->name }}</td>
-                                                        <td>{{ $product->categoryID }}</td>
-                                                        <td>{{ $product->warrantyID }}</td>
-                                                        <td>{{ $product->price }}</td>
-                                                        <td>{{ $product->quantity }}</td>
+                                                        <td>{{ $order->id }}</td>
+                                                        <td>{{ $order->amount }}</td>
+                                                        <td>{{ $order->purchaseDate }}</td>
+                                                        <td>{{ $order->serviceDate }}</td>
+                                                        <td>{{ $order->installDate }}</td>
+                                                        <td>{{ $order->status }}</td>
                                                         <td>
 
-                                                            <a href="{{route('admin.product.edit',['id'=>$product->id])}}">
-                                                            <button class="btn-primary">Edit</button></a>
-                                                            <a onClick="return swal({{ $product->id }})">
+                                                            @if(!($order->status == 'paid'))
+                                                            <a href="{{route('user.checkout.view.id',['id'=>$order->id])}}">
+                                                            <button class="btn-primary">CheckOut</button></a>
+
+                                                            <a onClick="return swal( {{ $order->id}} )">
                                                             <button class="btn-outline-secondary">Delete</button></a>
 
-                                                            <script src="//cdn.jsdelivr.net/npm/sweetalert2@11"></script>
+                                                              <script src="//cdn.jsdelivr.net/npm/sweetalert2@11"></script>
 
                                                             <script>
 
@@ -124,12 +92,17 @@
                                                                         }).then((result) => {
                                                                         if (result.isConfirmed) {
                                                                             new function() {
-                                                                                window.location.href = "{{route('admin.product.delete', '')}}"+"/"+a;
+                                                                                window.location.href = "{{route('user.order.delete', '')}}"+"/"+a;
                                                                             };
                                                                         }
                                                                     })
                                                                 }
                                                             </script>
+                                                            @endif
+
+                                                            
+
+                                                          
                                                         </td>
                                                     </tr>
                                                     @endforeach
