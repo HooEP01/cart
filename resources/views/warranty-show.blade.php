@@ -62,7 +62,7 @@
                                     <div class="col-6 py-1">
                                         <p class="card-text text-muted mb-0"></p>
                                         <a href="">
-                                        <button type="submit" class="btn btn-danger btn-xs">Learn More</button></a>
+                                        <button type="submit" class="btn btn-primary btn-xs">Learn More</button></a>
                                     </div>
                                 </div>
                             </div>

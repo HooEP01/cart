@@ -44,6 +44,44 @@
                                                 <h6 class="mb-0">Product List</h6>
                                             </div>
                                         </div>
+
+                                        <div class="d-flex justify-content-between align-items-center mx-0 row">
+                                            <div class="col-sm-12 col-md-6">
+                                               
+                                            </div>
+                                            <div class="col-sm-12 col-md-6 p-2">
+                                                <form name="orderShowStatus" class="form-inline my-2 my-lg-0">
+                                                    @csrf
+                                                        <select class="form-control form-select form-select-sm"  aria-label=".form-select-sm example" name="mylist" onChange="selection()">
+                                                        @if(isset($status))
+                                                            <option>{{$status}}</option>
+                                                            <option value="{{route('user.order.view')}}">All</option>
+                                                            
+                                                            @if($status == 'unpaid')
+                                                                <option value="{{route('user.order.view.status',['status'=>'paid'],['date'=>''])}}">paid</option>
+                                                                <option value="{{route('user.order.view.status',['status'=>'complete'])}}">complete</option>
+                                                            @elseif($status == 'paid')
+                                                                <option value="{{route('user.order.view.status',['status'=>'unpaid'])}}">unpaid</option>
+                                                                <option value="{{route('user.order.view.status',['status'=>'complete'])}}">complete</option>
+                                                            @else
+                                                                <option value="{{route('user.order.view.status',['status'=>'unpaid'])}}">unpaid</option>
+                                                                <option value="{{route('user.order.view.status',['status'=>'paid'])}}">paid</option>
+                                                            @endif
+                                                        @else
+                                                        <option>All</option>
+                                                        <option value="{{route('user.order.view.status',['status'=>'unpaid'])}}">unpaid</option>
+                                                        <option value="{{route('user.order.view.status',['status'=>'paid'])}}">paid</option>
+                                                        <option value="{{route('user.order.view.status',['status'=>'complete'])}}">complete</option>
+                                                        @endif
+                                                        
+                                                            
+                                                
+                                                        </select>
+
+                                                   
+                                                </form>
+                                            </div>
+                                        </div>
                                        
                                         <table class="datatables-basic table dataTable no-footer dtr-column" id="DataTables_Table_0" role="grid" aria-describedby="DataTables_Table_0_info" style="width: 1205px;">
                                             <thead>
@@ -66,15 +104,24 @@
                                                         <td>{{ $order->purchaseDate }}</td>
                                                         <td>{{ $order->serviceDate }}</td>
                                                         <td>{{ $order->installDate }}</td>
-                                                        <td>{{ $order->status }}</td>
+                                                        <td>@if( $order->status == 'unpaid')
+                                                            <span class="badge badge-danger">{{ $order->status }}</span>
+                                                            @elseif( $order->status == 'paid')
+                                                            <span class="badge badge-success">{{ $order->status }}</span>
+                                                            @elseif( $order->status == 'complete')
+                                                            <span class="badge badge-success">{{ $order->status }}</span>
+                                                            @endif
+                                                        </td>
                                                         <td>
-
+                                                            <a href="{{route('user.order.view.detail',['id'=>$order->id])}}">
+                                                            <button class="btn btn-outline-secondary" style="width:115px;"> Detail </button></a>
+                                                           
                                                             @if(!($order->status == 'paid'))
                                                             <a href="{{route('user.checkout.view.id',['id'=>$order->id])}}">
-                                                            <button class="btn-primary">CheckOut</button></a>
+                                                            <button class="btn btn-primary" style="width:115px;">Checkout</button></a>
 
                                                             <a onClick="return swal( {{ $order->id}} )">
-                                                            <button class="btn-outline-secondary">Delete</button></a>
+                                                            <button class="btn btn-outline-danger" style="width:115px;"> Delete </button></a>
 
                                                               <script src="//cdn.jsdelivr.net/npm/sweetalert2@11"></script>
 
@@ -110,21 +157,17 @@
                                             </tbody>
 
                                         </table>
+                                        
+                                         <div class="d-flex justify-content-between mx-0 row">
 
-                                        <div class="d-flex justify-content-between mx-0 row">
-
-                                            <div class="col-sm-12 col-md-6">
-
-                                                <div class="dataTables_info" id="DataTables_Table_0_info" role="status" aria-live="polite">Showing 0 to 0 of 0 entries</div>
-                                            </div>
                                             <div class="col-sm-12 col-md-6">
                                                 <div class="dataTables_paginate paging_simple_numbers" id="DataTables_Table_0_paginate">
                                                     <ul class="pagination">
-                                                        <li class="paginate_button page-item previous disabled" id="DataTables_Table_0_previous"><a href="#" aria-controls="DataTables_Table_0" data-dt-idx="0" tabindex="0" class="page-link">&nbsp;</a></li>
-                                                        <li class="paginate_button page-item next disabled" id="DataTables_Table_0_next"><a href="#" aria-controls="DataTables_Table_0" data-dt-idx="1" tabindex="0" class="page-link">&nbsp;</a></li>
+                                                        {{$orders->links('pagination::bootstrap-4')}}
                                                     </ul>
                                                 </div>
                                             </div>
+                                         
                                         </div>
                                     </div>
                                 </div>
@@ -156,6 +199,17 @@
 
 <!-- BEGIN: Page Vendor JS-->
 <!-- END: Page Vendor JS-->
+
+
+<script>
+    function selection()
+   {
+   var w = document.orderShowStatus.mylist.selectedIndex;
+   var url_add = document.orderShowStatus.mylist.options[w].value;
+   window.location.href = url_add;
+   }
+
+</script>
 
 </html>
 @endsection

@@ -11311,3 +11311,7 @@ a.text-dark:hover, a.text-dark:focus {
     border-color : #EBE9F1;
   }
 }
+
+img.img-product {
+  height: 250px;
+}

@@ -10,18 +10,37 @@ use DB;
 use Auth;
 use Session;
 use Notification;
+use Carbon\Carbon;
 
 class PaymentController extends Controller
 {
     public function userView(){
         
-        $orders=DB::table('orders')->where('orders.userID','=',Auth::id())->where('orders.status','=','unpaid')->first();
+        $orders=DB::table('orders')
+        ->where('orders.userID','=',Auth::id())
+        ->where('orders.status','=','unpaid')
+        ->orderBy('created_at','desc')
+        ->first();
+
+        $date=Carbon::now();
+        $orders->purchaseDate=$date->toDateString();
+        $endDate = Carbon::today()->addDays(7);
+        $orders->serviceDate=$date->toDateString();
+        $orders->save();
+        
         return view('checkout')->with('orders',compact('orders'));
     }
 
     public function userViewID($id){
        
         $orders=Order::find($id);
+        
+        $date=Carbon::now();
+        $orders->purchaseDate=$date->toDateString();
+        $endDate = Carbon::today()->addDays(7);
+        $orders->serviceDate=$endDate->toDateString();
+        $orders->save();
+        
         return view('checkout')->with('orders',compact('orders'));
     }
 
@@ -32,12 +51,10 @@ class PaymentController extends Controller
             'amount' =>$request->sub,
         ]);
 
-        $orderID=DB::table('orders')->where('orders.userID','=',Auth::id())->where('orders.status','=','unpaid')->first();
-
         $items=$request->input('cid');
         foreach($items as $item=>$value){
             $carts=Cart::find($value); // get the cart item record
-            $carts->orderID=$orderID->id; // binding the orderID value with record
+            $carts->orderID=$newOrder->id; // binding the orderID value with record
             $carts->save();
         }
 
@@ -64,7 +81,7 @@ class PaymentController extends Controller
         $orders->amount=$request->amount;
         $orders->save();
 
-        return redirect()->route('user.product.view');
+        return redirect()->route('user.order.view');
     }
 
 }

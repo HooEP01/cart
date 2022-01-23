@@ -72,7 +72,7 @@
                     <li class="nav-item nav-search"><a class="nav-link nav-link-search"><i class="ficon" data-feather="search"></i></a>
                         <div class="search-input">
                             <div class="search-input-icon"><i data-feather="search"></i></div>
-                            <input class="form-control input" type="text" placeholder="Explore Vuexy..." tabindex="-1" data-search="search">
+                            <input class="form-control input" type="text" placeholder="Explore..." tabindex="-1" data-search="search">
                             <div class="search-input-close"><i data-feather="x"></i></div>
                             <ul class="search-list search-list-main"></ul>
                         </div>
@@ -176,7 +176,7 @@
             <div class="shadow-bottom"></div>
             <div class="main-menu-content">
                 <ul class="navigation navigation-main" id="main-menu-navigation" data-menu="menu-navigation">
-                    <li class=" nav-item"><a class="d-flex align-items-center" href="{{route('user.account.view')}}"><i data-feather="user"></i><span class="menu-title text-truncate" data-i18n="Chat">Account</span></a>
+                    <li class=" nav-item"><a class="d-flex align-items-center" href="{{route('admin.account.view')}}"><i data-feather="user"></i><span class="menu-title text-truncate" data-i18n="Chat">Account</span></a>
                     </li>
                     <li class=" nav-item"><a class="d-flex align-items-center" href="{{route('admin.home')}}"><i data-feather="home"></i><span class="menu-title text-truncate" data-i18n="Dashboards">Dashboards</span></a>
                     </li>

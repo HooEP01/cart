@@ -3,8 +3,10 @@
 @section('content')
 
 <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
+<script src="//cdn.jsdelivr.net/npm/sweetalert2@11"></script>
 
-<script>
+<script type="text/javascript">
+
     function cal(){
         var price=document.getElementsByName('price[]');
         var quantity=document.getElementsByName('quantity[]');
@@ -26,7 +28,25 @@
         }
         cal();
     }
-                                                
+    
+    function swal(a){
+        Swal.fire({
+        title: 'Are you sure?',
+        text: "You won't be able to revert this!",
+        icon: 'warning',
+        showCancelButton: true,
+        confirmButtonColor: '#3085d6',
+        cancelButtonColor: '#d33',
+        confirmButtonText: 'Yes, delete it!'
+            }).then((result) => {
+            if (result.isConfirmed) {
+        new function() {
+        window.location.href = "{{route('user.cart.delete', '')}}"+"/"+a;
+        };
+      }
+    })
+    }
+
 </script>
 
 <!-- BEGIN: Content-->
@@ -98,7 +118,7 @@
                                             <thead>
                                                 <tr role="row">
                                                     <th class="control sorting_disabled" rowspan="1" colspan="1" style="width: 35px; display: none;" aria-label=""></th>
-                                                    <th class="sorting" tabindex="0" aria-controls="DataTables_Table_0" rowspan="1" colspan="1" style="width: 114px;"><input type="checkbox" onClick="toggle(this)" /> Select All</th>
+                                                    <th class="sorting" tabindex="0" aria-controls="DataTables_Table_0" rowspan="1" colspan="1" style="width: 114px;"><input type="checkbox" onClick="toggle(this)"/> Select All</th>
                                                     <th class="sorting" tabindex="0" aria-controls="DataTables_Table_0" rowspan="1" colspan="1" style="width: 119px;">Name</th>
                                                     <th class="sorting" tabindex="0" aria-controls="DataTables_Table_0" rowspan="1" colspan="1" style="width: 107px;">Category</th>
                                                     <th class="sorting" tabindex="0" aria-controls="DataTables_Table_0" rowspan="1" colspan="1" style="width: 107px;">Warranty</th>
@@ -124,39 +144,17 @@
                                                         <td>{{ $product->categoryID }}</td>
                                                         <td>{{ $product->warrantyID }}</td>
                                                         <td>{{ $product->price }}</td>
-                                                        <td>{{ $product->quantity }}
-                                                            <!--
-                                                            <input type="number" id="quantity[]" class="form-control" name="quantity[]" value="{{ $product->quantity }}" required>
-                                                            -->
+                                                        <td>
+                                                            {{$product->quantity}}
                                                         </td>
 
                                                         <td>
+                                                            
+                                                            
+                                                            <button type="button" class="btn btn-outline-danger">
+                                                                <a onClick="return swal({{$product->cid}})">
+                                                            Delete</a></button>
 
-                                                            <a onClick="return swal({{$product->cid}})">
-                                                            <button class="btn-outline-secondary">Delete</button></a>
-
-                                                            <script src="//cdn.jsdelivr.net/npm/sweetalert2@11"></script>
-
-                                                            <script>
-
-                                                                function swal(a){
-                                                                    Swal.fire({
-                                                                        title: 'Are you sure?',
-                                                                        text: "You won't be able to revert this!",
-                                                                        icon: 'warning',
-                                                                        showCancelButton: true,
-                                                                        confirmButtonColor: '#3085d6',
-                                                                        cancelButtonColor: '#d33',
-                                                                        confirmButtonText: 'Yes, delete it!'
-                                                                        }).then((result) => {
-                                                                        if (result.isConfirmed) {
-                                                                            new function() {
-                                                                                window.location.href = "{{route('user.order.delete', '')}}"+"/"+a;
-                                                                            };
-                                                                        }
-                                                                    })
-                                                                }
-                                                            </script>
                                                         </td>
                                                     </tr>
                                                     @endforeach
@@ -186,11 +184,7 @@
                                                 
                                             </div>
                                         </div>
-</form>
-
-                                    
-
-
+                                    </form>
                                     </div>
                                 </div>
                             </div>

@@ -49,7 +49,7 @@
                                                         <label for="purchaseDate">Purchase Date</label>
                                                     </div>
                                                     <div class="col-sm-9">
-                                                        <input name="purchaseDate" id="datefield" type='date' min='1899-01-01' max='2000-13-13' value="{{$order->purchaseDate}}" required></input>
+                                                        <input name="purchaseDate" id="datefield" type='date' min='1899-01-01' max='2000-13-13' value="{{$order->purchaseDate}}" readonly></input>
                                                     </div>
                                                 </div>
                                             </div>
@@ -60,7 +60,7 @@
                                                         <label for="serviceDate">Service Date</label>
                                                     </div>
                                                     <div class="col-sm-9">
-                                                    <input name="serviceDate" id="datefield" type='date' min='1899-01-01' max='2000-13-13' value="{{$order->serviceDate}}" required></input>
+                                                    <input name="serviceDate" id="datefield" type='date' min='{{$order->purchaseDate}}' max='{{$order->serviceDate}}' value="{{$order->serviceDate}}" required></input>
                                                     </div>
                                                 </div>
                                             </div>

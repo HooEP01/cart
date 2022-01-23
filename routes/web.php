@@ -39,11 +39,13 @@ Auth::routes();
 */
 Route::get('/admin/home', [App\Http\Controllers\HomeController::class, 'adminHome'])->name('admin.home')->middleware('is_admin');
 
+
+
 /*
 | Admin - Account
 */
-/* **** Route::get('/admin/account/view', [App\Http\Controllers\UserController::class, 'adminView'])->name('admin.account.view')->middleware('is_admin'); 
-        Route::post('/admin/account/edit', [App\Http\Controllers\UserController::class, 'adminEdit'])->name('admin.account.edit')->middleware('is_admin'); */
+Route::get('/admin/account/view', [App\Http\Controllers\UserController::class, 'adminView'])->name('admin.account.view')->middleware('is_admin'); 
+/* Route::post('/admin/account/edit', [App\Http\Controllers\UserController::class, 'adminEdit'])->name('admin.account.edit')->middleware('is_admin'); */
 
 /*
 | Admin - Category
@@ -51,6 +53,7 @@ Route::get('/admin/home', [App\Http\Controllers\HomeController::class, 'adminHom
 Route::get('/admin/category', [App\Http\Controllers\CategoryController::class, 'view'])->name('admin.category')->middleware('is_admin');
 Route::post('/admin/category/add', [App\Http\Controllers\CategoryController::class, 'add'])->name('admin.category.add')->middleware('is_admin');
 Route::get('/admin/category/delete/{id}', [App\Http\Controllers\CategoryController::class, 'delete'])->name('admin.category.delete')->middleware('is_admin');
+Route::post('/admin/category', [App\Http\Controllers\CategoryController::class, 'search'])->name('admin.category.search')->middleware('is_admin');
 
 /*
 | Admin - Product
@@ -61,6 +64,7 @@ Route::get('/admin/product/view', [App\Http\Controllers\ProductController::class
 Route::get('/admin/product/edit/{id}', [App\Http\Controllers\ProductController::class, 'adminEdit'])->name('admin.product.edit')->middleware('is_admin');
 Route::post('/admin/product/update', [App\Http\Controllers\ProductController::class, 'adminUpdate'])->name('admin.product.update')->middleware('is_admin');
 Route::get('/admin/product/delete/{id}', [App\Http\Controllers\ProductController::class, 'adminDelete'])->name('admin.product.delete')->middleware('is_admin');
+Route::post('/admin/product/view', [App\Http\Controllers\ProductController::class, 'adminSearch'])->name('admin.product.search')->middleware('is_admin');
 
 /*
 | Admin - Order
@@ -71,6 +75,8 @@ Route::get('/admin/order/view', [App\Http\Controllers\OrderController::class, 'a
 Route::get('/admin/order/edit/{id}', [App\Http\Controllers\OrderController::class, 'adminEdit'])->name('admin.order.edit')->middleware('is_admin');
 Route::post('/admin/order/update', [App\Http\Controllers\OrderController::class, 'adminUpdate'])->name('admin.order.update')->middleware('is_admin');
 Route::get('/admin/order/delete/{id}', [App\Http\Controllers\OrderController::class, 'adminDelete'])->name('admin.order.delete')->middleware('is_admin');
+Route::get('/admin/order/view/{status}', [App\Http\Controllers\OrderController::class, 'adminViewStatus'])->name('admin.order.view.status')->middleware('is_admin');
+Route::post('/admin/order/view', [App\Http\Controllers\OrderController::class, 'adminViewOrder'])->name('admin.order.view.orderID')->middleware('is_admin');
 
 /*
 | Admin - Warranty
@@ -81,6 +87,8 @@ Route::get('/admin/warranty/view', [App\Http\Controllers\WarrantyController::cla
 Route::get('/admin/warranty/edit/{id}', [App\Http\Controllers\WarrantyController::class, 'adminEdit'])->name('admin.warranty.edit')->middleware('is_admin');
 Route::post('/admin/warranty/update', [App\Http\Controllers\WarrantyController::class, 'adminUpdate'])->name('admin.warranty.update')->middleware('is_admin');
 Route::get('/admin/warranty/delete/{id}', [App\Http\Controllers\WarrantyController::class, 'adminDelete'])->name('admin.warranty.delete')->middleware('is_admin');
+Route::post('/admin/warranty/view', [App\Http\Controllers\WarrantyController::class, 'adminSearch'])->name('admin.warranty.search')->middleware('is_admin');
+
 
 /*
 |-------------------------------------------------------------------------
@@ -100,11 +108,23 @@ Route::get('/account/view', [App\Http\Controllers\UserController::class, 'userVi
 /* **** Route::post('/account/edit', [App\Http\Controllers\UserController::class, 'userEdit'])->name('user.account.edit'); */
 
 /*
+| User - Product
+*/
+Route::get('/product/view', [App\Http\Controllers\ProductController::class, 'userView'])->name('user.product.view');
+Route::get('/product/view/{id}', [App\Http\Controllers\ProductController::class, 'userViewDetail'])->name('user.product.view.detail');
+Route::post('/product/view', [App\Http\Controllers\ProductController::class, 'userSearch'])->name('user.product.search');
+Route::get('/cart/view/{id}', [App\Http\Controllers\ProductController::class, 'userSearchDetail'])->name('user.product.search.detail');
+Route::get('/product/category/{id}', [App\Http\Controllers\ProductController::class, 'userSearchCategory'])->name('user.product.search.category');
+
+
+/*
 | User - Order
 */
 Route::get('/order/view', [App\Http\Controllers\OrderController::class, 'userView'])->name('user.order.view');
 Route::get('/order/delete/{id}', [App\Http\Controllers\OrderController::class, 'userDelete'])->name('user.order.delete');
-/* ***** Route::get('/order/view/{id}', [App\Http\Controllers\OrderController::class, 'userViewDetail'])->name('user.order.view.detail');*/
+Route::get('/order/view/detail/{id}', [App\Http\Controllers\OrderController::class, 'userViewDetail'])->name('user.order.view.detail');
+Route::get('/order/view/{status}', [App\Http\Controllers\OrderController::class, 'userViewStatus'])->name('user.order.view.status');
+
 
 /*
 | User - checkout
@@ -119,17 +139,9 @@ Route::post('/checkout', [App\Http\Controllers\PaymentController::class, 'userPa
 */
 Route::post('/cart/add', [App\Http\Controllers\CartController::class, 'userAdd'])->name('user.cart.add');
 Route::get('/cart/view', [App\Http\Controllers\CartController::class, 'userView'])->name('user.cart.view');
-/* ***** Route::post('/cart/edit', [App\Http\Controllers\CartController::class, 'userEdit'])->name('user.cart.edit'); */
-/* ***** Route::post('/cart/delete', [App\Http\Controllers\CartController::class, 'userEdit'])->name('user.cart.delete'); */
-
-/*
-| User - Product
-*/
-Route::get('/product/view', [App\Http\Controllers\ProductController::class, 'userView'])->name('user.product.view');
-Route::get('/product/view/{id}', [App\Http\Controllers\ProductController::class, 'userViewDetail'])->name('user.product.view.detail');
+Route::get('/cart/delete/{id}', [App\Http\Controllers\CartController::class, 'userDelete'])->name('user.cart.delete');
 
 /*
 | User - Warranty
 */
 Route::get('/warranty/view', [App\Http\Controllers\WarrantyController::class, 'userView'])->name('user.warranty.view');
-

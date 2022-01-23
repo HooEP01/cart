@@ -67,12 +67,14 @@
                 </div>
                 <ul class="nav navbar-nav align-items-center ml-auto">
                     <li class="nav-item nav-search"><a class="nav-link nav-link-search"><i class="ficon" data-feather="search"></i></a>
-                        <div class="search-input">
-                            <div class="search-input-icon"><i data-feather="search"></i></div>
-                            <input class="form-control input" type="text" placeholder="Explore Vuexy..." tabindex="-1" data-search="search">
-                            <div class="search-input-close"><i data-feather="x"></i></div>
-                            <ul class="search-list search-list-main"></ul>
-                        </div>
+                        <form class="form-inline my-2 my-lg-0" action="{{route('user.product.search')}}" method="POST">
+                            <div class="search-input">
+                                @csrf
+                                <div class="search-input-icon"><i data-feather="search"></i></div>
+                                <input type="search"  name="keyword" class="form-control input" placeholder="Explore..." tabindex="-1" data-search="search">
+                                <div class="search-input-close"><i data-feather="x"></i></div>
+                            </div>
+                        </form>
                     </li>
                     <div class="collapse navbar-collapse" id="navbarSupportedContent">
                     <!-- Left Side Of Navbar -->
@@ -162,14 +164,14 @@
                 <ul class="navigation navigation-main" id="main-menu-navigation" data-menu="menu-navigation">
                     <li class=" nav-item"><a class="d-flex align-items-center" href="{{route('user.account.view')}}"><i data-feather="user"></i><span class="menu-title text-truncate" data-i18n="Chat">Account</span></a>
                     </li>
-                    <li class=" nav-item"><a class="d-flex align-items-center" href="{{route('home')}}"><i data-feather="home"></i><span class="menu-title text-truncate" data-i18n="Dashboards">Dashboards</span></a>
+                    <li class=" nav-item"><a class="d-flex align-items-center" href="{{route('home')}}"><i data-feather="home"></i><span class="menu-title text-truncate" data-i18n="Dashboards">Home</span></a>
                      
                     </li>
                     <li class=" navigation-header"><span data-i18n="Apps &amp; Pages">Pages</span><i data-feather="more-horizontal"></i>
                     </li>
                     <li class=" nav-item"><a class="d-flex align-items-center" href="{{route('user.order.view')}}"><i data-feather="file"></i><span class="menu-title text-truncate" data-i18n="Chat">Order</span></a>
                     </li>
-                    <li class=" nav-item"><a class="d-flex align-items-center" href="{{route('user.cart.view')}}"><i data-feather="align-left"></i><span class="menu-title text-truncate" data-i18n="Categories">Cart</span></a>
+                    <li class=" nav-item"><a class="d-flex align-items-center" href="{{route('user.cart.view')}}"><i data-feather="shopping-cart"></i><span class="menu-title text-truncate" data-i18n="Categories">Cart</span></a>
                     </li>
                     <li class=" nav-item"><a class="d-flex align-items-center" href="{{route('user.product.view')}}"><i data-feather="box"></i><span class="menu-title text-truncate" data-i18n="Product">Product</span></a>
                     </li>

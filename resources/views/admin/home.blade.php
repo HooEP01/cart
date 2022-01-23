@@ -26,7 +26,7 @@
                                     </div>
                                 </div>
                                 <div class="text-center">
-                                    <h1 class="mb-1 text-white">Congratulations John,</h1>
+                                    <h1 class="mb-1 text-white">Welcome to Admin Page</h1>
                                     <p class="card-text m-auto w-75">
                                         You have done <strong>57.6%</strong> more sales today. Check your new badge in your profile.
                                     </p>
@@ -37,6 +37,7 @@
                     <!-- Greetings Card ends -->
 
                     <!-- Subscribers Chart Card starts -->
+                    @foreach($users as $user)
                     <div class="col-lg-3 col-sm-6 col-12">
                         <div class="card">
                             <div class="card-header flex-column align-items-start pb-0">
@@ -45,15 +46,17 @@
                                         <i data-feather="users" class="font-medium-5"></i>
                                     </div>
                                 </div>
-                                <h2 class="font-weight-bolder mt-1">92.6k</h2>
-                                <p class="card-text">Subscribers Gained</p>
+                                <h2 class="font-weight-bolder mt-1">{{$user->id}}</h2>
+                                <p class="card-text">Users Gained</p>
                             </div>
                             <div id="gained-chart"></div>
                         </div>
                     </div>
+                    @endforeach
                     <!-- Subscribers Chart Card ends -->
 
                     <!-- Orders Chart Card starts -->
+                    @foreach($orders as $order)
                     <div class="col-lg-3 col-sm-6 col-12">
                         <div class="card">
                             <div class="card-header flex-column align-items-start pb-0">
@@ -62,7 +65,7 @@
                                         <i data-feather="package" class="font-medium-5"></i>
                                     </div>
                                 </div>
-                                <h2 class="font-weight-bolder mt-1">38.4K</h2>
+                                <h2 class="font-weight-bolder mt-1">{{$order->id}}</h2>
                                 <p class="card-text">Orders Received</p>
                             </div>
                             <div id="order-chart"></div>
@@ -70,6 +73,7 @@
                     </div>
                     <!-- Orders Chart Card ends -->
                 </div>
+                @endforeach
 
                 <div class="row match-height">
                     <!-- Avg Sessions Chart Card starts -->
@@ -345,31 +349,6 @@
                     <!--/ App Design Card -->
                 </div>
 
-                <!-- List DataTable -->
-                <div class="row">
-                    <div class="col-12">
-                        <div class="card invoice-list-wrapper">
-                            <div class="card-datatable table-responsive">
-                                <table class="invoice-list-table table">
-                                    <thead>
-                                        <tr>
-                                            <th></th>
-                                            <th>#</th>
-                                            <th><i data-feather="trending-up"></i></th>
-                                            <th>Client</th>
-                                            <th>Total</th>
-                                            <th class="text-truncate">Issued Date</th>
-                                            <th>Balance</th>
-                                            <th>Invoice Status</th>
-                                            <th class="cell-fit">Actions</th>
-                                        </tr>
-                                    </thead>
-                                </table>
-                            </div>
-                        </div>
-                    </div>
-                </div>
-                <!--/ List DataTable -->
             </section>
             <!-- Dashboard Analytics end -->
 

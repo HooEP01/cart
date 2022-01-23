@@ -61,7 +61,10 @@
                                                
                                             </div>
                                             <div class="col-sm-12 col-md-6">
-                                                <div id="DataTables_Table_0_filter" class="dataTables_filter"><label>Search:<input type="search" class="form-control " placeholder="" aria-controls="DataTables_Table_0"></label></div>
+                                                <form class="form-inline my-2 my-lg-0" action="{{route('admin.category.search')}}" method="POST">
+                                                    @csrf
+                                                    <div id="DataTables_Table_0_filter" class="dataTables_filter"><label>Search:<input type="search" id="name" name="name" class="form-control " placeholder="name" aria-controls="DataTables_Table_0"></label></div>
+                                                </form>
                                             </div>
                                         </div>
                                         <table class="datatables-basic table dataTable no-footer dtr-column" id="DataTables_Table_0" role="grid" aria-describedby="DataTables_Table_0_info" style="width: 1205px;">
@@ -81,7 +84,7 @@
                                                         <td>{{ $category->name }}</td>                                                    
                                                         <td>
                                                             <a href="{{route('admin.category.delete',['id'=>$category->id])}}">
-                                                            <button class="btn-outline-secondary">Delete</button></a>
+                                                            <button class="btn btn-outline-secondary" style="width:115px;">Delete</button></a>
                                                         </td>
                                                     </tr>
                                                   @endforeach
@@ -90,20 +93,16 @@
 
                                         </table>
 
-                                        <div class="d-flex justify-content-between mx-0 row"  >
+                                       <div class="d-flex justify-content-between mx-0 row">
 
-                                            <div class="col-sm-12 col-md-6"  >
-
-                                                <div class="dataTables_info" id="DataTables_Table_0_info" role="status" aria-live="polite"  >Showing 0 to 0 of 0 entries</div>
-                                            </div>
-                                            <div class="col-sm-12 col-md-6"  >
-                                                <div class="dataTables_paginate paging_simple_numbers" id="DataTables_Table_0_paginate"  >
+                                            <div class="col-sm-12 col-md-6">
+                                                <div class="dataTables_paginate paging_simple_numbers" id="DataTables_Table_0_paginate">
                                                     <ul class="pagination">
-                                                        <li class="paginate_button page-item previous disabled" id="DataTables_Table_0_previous"><a href="#" aria-controls="DataTables_Table_0" data-dt-idx="0" tabindex="0" class="page-link">&nbsp;</a></li>
-                                                        <li class="paginate_button page-item next disabled" id="DataTables_Table_0_next"><a href="#" aria-controls="DataTables_Table_0" data-dt-idx="1" tabindex="0" class="page-link">&nbsp;</a></li>
+                                                        {{$categories->links('pagination::bootstrap-4')}}
                                                     </ul>
                                                 </div>
                                             </div>
+                                         
                                         </div>
                                     </div>
                                 </div>

@@ -69,8 +69,21 @@ class WarrantyController extends Controller
     {
         $warranties = DB::table('warranties')
             ->select('warranties.*')
-            ->get();
+            ->orderBy('created_at','desc')
+            ->paginate(5);
+
         return view('admin.warranty-view')->with('warranties', $warranties);
+    }
+
+    public function adminSearch()
+    {
+        $r=request();
+        $keyword=$r->name;
+        $warranties=DB::table('warranties')
+        ->where('warranties.name','like','%'.$keyword.'%')
+        ->orderBy('created_at','desc')
+        ->paginate(5);
+        return view('admin.warranty-view')->with('warranties',$warranties);
     }
 
     /*

@@ -8,7 +8,7 @@ use App\Models\Order;
 use App\Models\Cart;
 use Auth;
 use Session;
-use PDF;
+use Carbon\Carbon;
 
 class OrderController extends Controller
 {
@@ -74,27 +74,43 @@ class OrderController extends Controller
     {
         $orders = DB::table('orders')
             ->select('orders.*')
-            ->get();
+            ->where('orders.status', '!=', 'delete')
+            ->orderBy('created_at','desc')
+            ->paginate(5);
+
+       
         return view('admin.order-view')->with('orders', $orders);
     }
 
+    public function adminViewStatus($status){
+        
+        $orders = DB::table('orders')
+        ->where('status','=',$status)
+        ->where('orders.status', '!=', 'delete')
+        ->orderBy('created_at','desc')
+        ->paginate(5);
+
+        $date = '0';
+        return view('admin.order-view')->with('orders',$orders)->with('status',$status);
+    }
+
+    
+
+    public function adminViewOrder(){
+        $r=request();
+        $keyword=$r->orderID;
+        $orders=DB::table('orders')
+        ->where('id','like','%'.$keyword.'%')
+        ->where('orders.status', '!=', 'delete')
+        ->orderBy('created_at','desc')
+        ->paginate(5);;
+        return view('admin.order-view')->with('orders',$orders);
+    }
     /*
     |----------------------------------------------------------------------------------------
     | User
     |----------------------------------------------------------------------------------------
     */
-    public function pdfReport()
-    {
-
-        $data = DB::table('orders')
-            ->select('orders.*')
-            ->where('orders.userID', '=', Auth::id())
-            ->get();
-
-        $pdf = PDF::loadView('myPDF', compact('data'));
-
-        return $pdf->download('Order_report.pdf');
-    }
 
     public function userView()
     {
@@ -102,7 +118,9 @@ class OrderController extends Controller
             ->select('orders.*')
             ->where('orders.userID', '=', Auth::id())
             ->where('orders.status', '!=', 'delete')
-            ->get();
+            ->orderBy('created_at','desc')
+            ->paginate(5);
+   
         return view('order-show')->with('orders', $orders);
     }
 
@@ -114,6 +132,30 @@ class OrderController extends Controller
         
         Session::flash('success',"Order delete successfully!");
         return redirect()->route('user.order.view');
+    }
+
+    public function userViewDetail($id){
+
+        $carts=db::table('carts')
+        ->leftjoin('products','products.id','=','carts.productID')
+        ->select('carts.*','products.name as productID',)
+        ->where('orderID',$id)
+        ->paginate(5);
+
+        $products=Cart::all()->where('orderID',$id);
+
+        return view('order-show-detail')->with('carts',$carts)->with('products',$products);
+
+    }
+
+    public function userViewStatus($status){
+        $orders = DB::table('orders')
+        ->where('status','=',$status)
+        ->where('orders.userID', '=', Auth::id())
+        ->where('orders.status', '!=', 'delete')
+        ->orderBy('created_at','desc')
+        ->paginate(5);
+        return view('order-show')->with('orders',$orders)->with('status',$status);
     }
 }
 

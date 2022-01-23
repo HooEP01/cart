@@ -36,8 +36,26 @@ class CartController extends Controller
         ->select('carts.quantity as cartQty','carts.id as cid','products.*','categories.name as categoryID','warranties.name as warrantyID')
         ->where('carts.orderID','=','')
         ->where('carts.userID','=',Auth::id())
-        ->paginate(5);
+        ->paginate(10);
         Return view('cart')->with('products',$carts);
     }
 
+    public function userDelete($id){
+        $deleteCarts=Cart::find($id);
+        $deleteCarts->delete();
+        
+        Session::flash('success',"Cart delete successfully!");
+        return redirect()->route('user.cart.view');
+    }
+
+    public function userEdit(){
+        $r=request();
+        $carts=Cart::find($r->id);
+
+        $carts->quantity=$r->quantity;
+        $carts->save();
+        
+        Session::flash('success',"Cart update successfully!");
+        return redirect()->route('user.cart.view');
+    }
 }

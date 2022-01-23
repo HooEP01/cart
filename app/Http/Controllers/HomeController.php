@@ -3,6 +3,11 @@
 namespace App\Http\Controllers;
    
 use Illuminate\Http\Request;
+use App\Models\Product;
+use App\Models\Category;
+use App\Models\Warranty;
+use App\Models\User;
+use DB;
     
 class HomeController extends Controller
 {
@@ -33,7 +38,21 @@ class HomeController extends Controller
      */
     public function adminHome()
     {
-        return view('admin.home');
+        $users=DB::table('users')
+        ->orderBy('created_at','desc')
+        ->first();
+
+        $orders=DB::table('orders')
+        ->orderBy('created_at','desc')
+        ->first();
+
+        return view('admin.home')->with('users',compact('users'))->with('orders',compact('orders'));
     }
+
+    /*
+    | ----------------------------------------------------------------
+    | Admin
+    | ----------------------------------------------------------------
+    */
      
 }

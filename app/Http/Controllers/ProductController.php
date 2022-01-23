@@ -6,6 +6,7 @@ use Illuminate\Http\Request;
 use App\Models\Product;
 use App\Models\Category;
 use App\Models\Warranty;
+use App\Models\Cart;
 use Session;
 use DB;
 
@@ -43,7 +44,8 @@ class ProductController extends Controller
         ->leftjoin('categories','categories.id','=','products.CategoryID')
         ->leftjoin('warranties','warranties.id','=','products.WarrantyID')
         ->select('products.*','categories.name as categoryID','warranties.name as warrantyID')
-        ->get();
+        ->orderBy('created_at','desc')
+        ->paginate(5);
 
         return view('admin.product-view')->with('products',$viewProduct);
     }
@@ -86,6 +88,18 @@ class ProductController extends Controller
         return redirect()->route('admin.product.view');
     }
 
+    public function adminSearch(){
+        $r=request();
+        $keyword=$r->name;
+        $products=DB::table('products')
+        ->where('products.name','like','%'.$keyword.'%')
+        ->leftjoin('categories','categories.id','=','products.CategoryID')
+        ->leftjoin('warranties','warranties.id','=','products.WarrantyID')
+        ->select('products.*','categories.name as categoryID','warranties.name as warrantyID')
+        ->orderBy('created_at','desc')
+        ->paginate(5);
+        return view('admin.product-view')->with('products',$products);
+    }
     /*
     | ----------------------------------------------------------------
     | User
@@ -93,8 +107,11 @@ class ProductController extends Controller
     */
 
     public function userView(){
-        $products=Product::all();
-        return view('product-show')->with('products',$products);
+        $products = DB::table('products')
+        ->select('products.*')
+        ->paginate(9);
+
+        return view('product-show')->with('categories',Category::all())->with('products',$products);
     }
 
     public function userViewDetail($id){
@@ -107,5 +124,36 @@ class ProductController extends Controller
         ->get();
 
         return view('product-show-detail')->with('products',$products);
+    }
+
+    public function userSearch(){
+        $r=request();
+        $keyword=$r->keyword;
+        $products=DB::table('products')->where('name','like','%'.$keyword.'%')->paginate(9);
+        Session::flash('success',"No Results Found.");
+        return view('product-show')->with('products',$products)->with('categories',Category::all());
+    }
+
+    public function userSearchDetail($id){
+        $carts=Cart::find($id);
+        $products=DB::table('products')
+        ->leftjoin('categories','categories.id','=','products.CategoryID')
+        ->leftjoin('warranties','warranties.id','=','products.WarrantyID')
+        ->select('products.*','categories.name as categoryID','warranties.name as warrantyID')
+        ->where('products.id',$carts->productID)
+        ->get();
+        Session::flash('success',"No Results Found.");
+        return view('product-show-detail')->with('products',$products);
+       
+    }
+
+    public function userSearchCategory($id){
+        $categoryID=Category::find($id);
+
+        $products = DB::table('products')
+        ->where('products.categoryID','=',$categoryID->id)
+        ->paginate(9);
+        Session::flash('success',"No Results Found.");
+        return view('product-show')->with('categories',Category::all())->with('categoryID',compact('categoryID'))->with('products',$products);
     }
 }

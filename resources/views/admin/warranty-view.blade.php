@@ -56,29 +56,23 @@
                                                 <h6 class="mb-0">Warranty List</h6>
                                             </div>
                                             <div class="dt-action-buttons text-right"   >
-                                                <div class="dt-buttons d-inline-flex"   > <button class="dt-button buttons-collection btn btn-outline-secondary dropdown-toggle mr-2" tabindex="0" aria-controls="DataTables_Table_0" type="button" aria-haspopup="true"><span><svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="feather feather-share font-small-4 mr-50">
+                                                <div class="dt-buttons d-inline-flex"><a href="{{route('admin.warranty.add')}}"><button class="dt-button buttons-collection btn btn-outline-secondary dropdown-toggle mr-2" tabindex="0" aria-controls="DataTables_Table_0" type="button" aria-haspopup="true"><span><svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="feather feather-share font-small-4 mr-50">
                                                                 <path d="M4 12v8a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2v-8"></path>
                                                                 <polyline points="16 6 12 2 8 6"></polyline>
-                                                                <line x1="12" y1="2" x2="12" y2="15"></line>
-                                                            </svg>Export</span></button> <a href="addOrder.php"><button class="dt-button create-new btn btn-primary" tabindex="0" aria-controls="DataTables_Table_0" type="button" data-toggle="modal" data-target="#modals-slide-in"><span><svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="feather feather-plus mr-50 font-small-4">
                                                                 <line x1="12" y1="5" x2="12" y2="19"></line>
                                                                 <line x1="5" y1="12" x2="19" y2="12"></line>
                                                             </svg>Add New Record</span></button></a> </div>
                                             </div>
                                         </div>
-                                        <div class="d-flex justify-content-between align-items-center mx-0 row"   >
-                                            <div class="col-sm-12 col-md-6"   >
-                                                <div class="dataTables_length" id="DataTables_Table_0_length"   ><label>Show <select name="DataTables_Table_0_length" aria-controls="DataTables_Table_0" class="custom-select form-control">
-                                                            <option value="7">7</option>
-                                                            <option value="10">10</option>
-                                                            <option value="25">25</option>
-                                                            <option value="50">50</option>
-                                                            <option value="75">75</option>
-                                                            <option value="100">100</option>
-                                                        </select> entries</label></div>
+                                        <div class="d-flex justify-content-between align-items-center mx-0 row">
+                                            <div class="col-sm-12 col-md-6">
+                                                   
                                             </div>
-                                            <div class="col-sm-12 col-md-6"   >
-                                                <div id="DataTables_Table_0_filter" class="dataTables_filter"   ><label>Search:<input type="search" class="form-control" placeholder="" aria-controls="DataTables_Table_0"></label></div>
+                                            <div class="col-sm-12 col-md-6">
+                                               <form class="form-inline my-2 my-lg-0" action="{{route('admin.warranty.search')}}" method="POST">
+                                                    @csrf
+                                                    <div id="DataTables_Table_0_filter" class="dataTables_filter"><label>Search:<input type="search" id="name" name="name" class="form-control " placeholder="name" aria-controls="DataTables_Table_0"></label></div>
+                                                </form>
                                             </div>
                                         </div>
                                         <table class="datatables-basic table dataTable no-footer dtr-column" id="DataTables_Table_0" role="grid" aria-describedby="DataTables_Table_0_info" style="width: 1205px;">
@@ -103,9 +97,9 @@
                                                         <td>{{ $warranty->year }}</td>
                                                         <td>
                                                             <a href="{{route('admin.warranty.edit',['id'=>$warranty->id])}}">
-                                                            <button class="btn-primary">Edit</button></a>
+                                                            <button class="btn btn-primary" style="width:115px;">Edit</button></a>
                                                             <a onClick="return swal({{ $warranty->id }})">
-                                                            <button class="btn-outline-secondary">Delete</button></a>
+                                                            <button class="btn btn-outline-danger" style="width:115px;">Delete</button></a>
 
                                                             <script src="//cdn.jsdelivr.net/npm/sweetalert2@11"></script>
 
@@ -134,19 +128,19 @@
                                                     @endforeach
                                             </tbody>
                                         </table>
-                                        <div class="d-flex justify-content-between mx-0 row"   >
-                                            <div class="col-sm-12 col-md-6"   >
-                                                <div class="dataTables_info" id="DataTables_Table_0_info" role="status" aria-live="polite"   >Showing 0 to 0 of 0 entries</div>
-                                            </div>
-                                            <div class="col-sm-12 col-md-6"   >
-                                                <div class="dataTables_paginate paging_simple_numbers" id="DataTables_Table_0_paginate"   >
+                                        
+                                        <div class="d-flex justify-content-between mx-0 row">
+
+                                            <div class="col-sm-12 col-md-6">
+                                                <div class="dataTables_paginate paging_simple_numbers" id="DataTables_Table_0_paginate">
                                                     <ul class="pagination">
-                                                        <li class="paginate_button page-item previous disabled" id="DataTables_Table_0_previous"><a href="#" aria-controls="DataTables_Table_0" data-dt-idx="0" tabindex="0" class="page-link">&nbsp;</a></li>
-                                                        <li class="paginate_button page-item next disabled" id="DataTables_Table_0_next"><a href="#" aria-controls="DataTables_Table_0" data-dt-idx="1" tabindex="0" class="page-link">&nbsp;</a></li>
+                                                        {{$warranties->links('pagination::bootstrap-4')}}
                                                     </ul>
                                                 </div>
                                             </div>
+                                         
                                         </div>
+
                                     </div>
                                 </div>
                             </div>

@@ -18,12 +18,15 @@ class CategoryController extends Controller
         $addCategory=Category::create([
             'name'=>$r->categoryName,
         ]);
+         Session::flash('success',"Category add successfully!");
         return redirect()->route('admin.category');
     }
 
 
     public function view(){
-        $viewCategory=Category::all();
+        $viewCategory = DB::table('categories')
+            ->orderBy('created_at','desc')
+            ->paginate(5);
         return view('admin.category')->with('categories',$viewCategory);
     }
 
@@ -33,5 +36,15 @@ class CategoryController extends Controller
         
         Session::flash('success',"Category delete successfully!");
         return redirect()->route('admin.category');
+    }
+
+    public function search(){
+        $r=request();
+        $keyword=$r->name;
+        $categories=DB::table('categories')
+        ->where('name','like','%'.$keyword.'%')
+        ->orderBy('created_at','desc')
+        ->paginate(5);;
+        return view('admin.category')->with('categories',$categories);
     }
 }
