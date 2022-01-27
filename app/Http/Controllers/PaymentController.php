@@ -25,8 +25,7 @@ class PaymentController extends Controller
         $date=Carbon::now();
         $orders->purchaseDate=$date->toDateString();
         $endDate = Carbon::today()->addDays(7);
-        $orders->serviceDate=$date->toDateString();
-        $orders->save();
+        $orders->serviceDate=$endDate->toDateString();
         
         return view('checkout')->with('orders',compact('orders'));
     }
@@ -53,8 +52,8 @@ class PaymentController extends Controller
 
         $items=$request->input('cid');
         foreach($items as $item=>$value){
-            $carts=Cart::find($value); // get the cart item record
-            $carts->orderID=$newOrder->id; // binding the orderID value with record
+            $carts=Cart::find($value);
+            $carts->orderID=$newOrder->id;
             $carts->save();
         }
 
@@ -65,7 +64,7 @@ class PaymentController extends Controller
         
         Stripe\Stripe::setApiKey(env('STRIPE_SECRET'));
         Stripe\Charge::create ([
-            "amount" => $request->amount * 100, // RM10 10*100 = 1000 cent
+            "amount" => $request->amount * 100,
             "currency" => "MYR",
             "source" => $request->stripeToken,
             "description" => "This payment is testing purpose of southern online",

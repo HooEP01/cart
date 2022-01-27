@@ -56,7 +56,16 @@
                                                     @endif
                                                     
                                                     @foreach($categories as $category)
+
+                                                        @if(isset($categoryID))
+                                                            @foreach($categoryID as $categoryId)
+                                                                @if(!($category->name == $categoryId->name))
+                                                                    <option value="{{route('user.product.search.category',['id'=>$category->id])}}">{{$category->name}}</option>
+                                                                @endif
+                                                            @endforeach
+                                                        @else
                                                         <option value="{{route('user.product.search.category',['id'=>$category->id])}}">{{$category->name}}</option>
+                                                        @endif
                                                     @endforeach
                                                 
                                                     </select>

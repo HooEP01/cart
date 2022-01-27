@@ -76,24 +76,23 @@
                                                             <option>{{$status}}</option>
                                                             <option value="{{route('admin.order.view')}}">All</option>
                                                             
-                                                            @if($status == 'unpaid')
-                                                                <option value="{{route('admin.order.view.status',['status'=>'paid'])}}">paid</option>
-                                                                <option value="{{route('admin.order.view.status',['status'=>'complete'])}}">complete</option>
-                                                            @elseif($status == 'paid')
+                                                            @if(!($status == 'unpaid'))
                                                                 <option value="{{route('admin.order.view.status',['status'=>'unpaid'])}}">unpaid</option>
-                                                                <option value="{{route('admin.order.view.status',['status'=>'complete'])}}">complete</option>
-                                                            @else
-                                                                <option value="{{route('admin.order.view.status',['status'=>'unpaid'])}}">unpaid</option>
+                                                            @endif
+                                                            @if(!($status == 'paid'))
                                                                 <option value="{{route('admin.order.view.status',['status'=>'paid'])}}">paid</option>
+                                                            @endif
+                                                            @if(!($status == 'complete'))
+                                                                <option value="{{route('admin.order.view.status',['status'=>'complete'])}}">complete</option>
                                                             @endif
                                                         @else
                                                         <option>All</option>
                                                         <option value="{{route('admin.order.view.status',['status'=>'unpaid'])}}">unpaid</option>
                                                         <option value="{{route('admin.order.view.status',['status'=>'paid'])}}">paid</option>
                                                         <option value="{{route('admin.order.view.status',['status'=>'complete'])}}">complete</option>
+                                                       
                                                         @endif
-                                                    
-                                                        </select>
+                                                    </select>
                                                 </form>
 
                                             </div>
@@ -207,7 +206,6 @@
 <!-- END: Page Vendor JS-->
 
 <script>
-
 
 function selection()
 {

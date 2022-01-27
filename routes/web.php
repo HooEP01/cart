@@ -25,10 +25,6 @@ Route::get('/', function () {return view('welcome');});
 Auth::routes();
 
 /*
-| PDF
-*/
-
-/*
 |-------------------------------------------------------------------------
 | Admin
 |-------------------------------------------------------------------------
@@ -39,13 +35,10 @@ Auth::routes();
 */
 Route::get('/admin/home', [App\Http\Controllers\HomeController::class, 'adminHome'])->name('admin.home')->middleware('is_admin');
 
-
-
 /*
 | Admin - Account
 */
 Route::get('/admin/account/view', [App\Http\Controllers\UserController::class, 'adminView'])->name('admin.account.view')->middleware('is_admin'); 
-/* Route::post('/admin/account/edit', [App\Http\Controllers\UserController::class, 'adminEdit'])->name('admin.account.edit')->middleware('is_admin'); */
 
 /*
 | Admin - Category
@@ -105,7 +98,6 @@ Route::get('/home', [App\Http\Controllers\HomeController::class, 'index'])->name
 | User - Account
 */
 Route::get('/account/view', [App\Http\Controllers\UserController::class, 'userView'])->name('user.account.view');
-/* **** Route::post('/account/edit', [App\Http\Controllers\UserController::class, 'userEdit'])->name('user.account.edit'); */
 
 /*
 | User - Product
@@ -116,7 +108,6 @@ Route::post('/product/view', [App\Http\Controllers\ProductController::class, 'us
 Route::get('/cart/view/{id}', [App\Http\Controllers\ProductController::class, 'userSearchDetail'])->name('user.product.search.detail');
 Route::get('/product/category/{id}', [App\Http\Controllers\ProductController::class, 'userSearchCategory'])->name('user.product.search.category');
 
-
 /*
 | User - Order
 */
@@ -124,7 +115,6 @@ Route::get('/order/view', [App\Http\Controllers\OrderController::class, 'userVie
 Route::get('/order/delete/{id}', [App\Http\Controllers\OrderController::class, 'userDelete'])->name('user.order.delete');
 Route::get('/order/view/detail/{id}', [App\Http\Controllers\OrderController::class, 'userViewDetail'])->name('user.order.view.detail');
 Route::get('/order/view/{status}', [App\Http\Controllers\OrderController::class, 'userViewStatus'])->name('user.order.view.status');
-
 
 /*
 | User - checkout

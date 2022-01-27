@@ -32,8 +32,8 @@ class OrderController extends Controller
         $addOrder=Order::create([
             'userID'=>$r->userID,
             'purchaseDate'=>$r->purchaseDate,
-            'installDate'=>$r->installDate,
             'serviceDate'=>$r->serviceDate,
+            'installDate'=>$r->installDate,
             'status'=>$r->status,
             'amount'=>$r->amount,
         ]);
@@ -52,8 +52,8 @@ class OrderController extends Controller
         $orders=Order::find($r->id);
 
         $orders->purchaseDate=$r->purchaseDate;
-        $orders->installDate=$r->installDate;
         $orders->serviceDate=$r->serviceDate;
+        $orders->installDate=$r->installDate;
         $orders->status=$r->status;
         $orders->amount=$r->amount;
         $orders->save();
@@ -90,10 +90,8 @@ class OrderController extends Controller
         ->orderBy('created_at','desc')
         ->paginate(5);
 
-        $date = '0';
         return view('admin.order-view')->with('orders',$orders)->with('status',$status);
     }
-
     
 
     public function adminViewOrder(){
