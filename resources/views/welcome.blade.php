@@ -124,10 +124,7 @@
                             <span class="avatar"><img class="round" src="{{ asset('img/user.png') }}" alt="avatar" height="40" width="40"><span class="avatar-status-online"></span></span>
                         </a>
 
-                        <div class="dropdown-menu dropdown-menu-right" aria-labelledby="navbarDropdown">
-
-                                    
-                                </div>
+                        <div class="dropdown-menu dropdown-menu-right" aria-labelledby="navbarDropdown"></div>
                     </li>
 
                     

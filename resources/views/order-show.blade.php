@@ -116,7 +116,7 @@
                                                             <a href="{{route('user.order.view.detail',['id'=>$order->id])}}">
                                                             <button class="btn btn-outline-secondary" style="width:115px;"> Detail </button></a>
                                                            
-                                                            @if(!($order->status == 'paid'))
+                                                            @if(!($order->status == 'paid' || $order->status == 'complete'))
                                                             <a href="{{route('user.checkout.view.id',['id'=>$order->id])}}">
                                                             <button class="btn btn-primary" style="width:115px;">Checkout</button></a>
 
